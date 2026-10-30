@@ -1,8 +1,15 @@
 build/
+build-*/
+benchmarks/data/
+benchmarks/results/
 out/
 .vs/
 *.exe
+*.db
+*.db-wal
+*.db-shm
 *.o
 *.obj
 CMakeCache.txt
 CMakeFiles/
+dist/

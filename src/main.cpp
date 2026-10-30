@@ -1,64 +1,38 @@
-#include "flux/indexer.hpp"
-#include "flux/options.hpp"
-#include "flux/scanner.hpp"
+#include "flux/app_paths.hpp"
+#include "flux/cli.hpp"
 
 #include <iostream>
-#include <string>
-#include <vector>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 namespace {
 
-void printUsage(std::ostream& out) {
-    out << "Usage: flux [--threads N] <directory>\n"
-           "  Recursively scans <directory> and reports documents and tokens processed.\n"
-           "\n"
-           "Options:\n"
-           "  --threads N   number of worker threads, 1-"
-        << flux::kMaxThreads
-        << " (default: hardware concurrency, here "
-        << flux::defaultThreadCount()
-        << ")\n"
-           "  -h, --help    show this message\n"
-           "\n"
-           "Supported extensions:";
-    for (const std::string& ext : flux::supportedExtensions()) {
-        out << ' ' << ext;
+#ifdef _WIN32
+// Makes the console print UTF-8 (so non-ASCII file names display correctly) and puts the
+// previous code page back on exit, so the user's shell is left as it was.
+class ConsoleUtf8 {
+public:
+    ConsoleUtf8() : previous_(GetConsoleOutputCP()) {
+        if (previous_ != 0) SetConsoleOutputCP(CP_UTF8);
     }
-    out << '\n';
-}
+    ~ConsoleUtf8() {
+        if (previous_ != 0) SetConsoleOutputCP(previous_);
+    }
+    ConsoleUtf8(const ConsoleUtf8&) = delete;
+    ConsoleUtf8& operator=(const ConsoleUtf8&) = delete;
+
+private:
+    UINT previous_;
+};
+#endif
 
 }  // namespace
 
 int main(int argc, char* argv[]) {
-    const std::vector<std::string> args(argv + 1, argv + argc);
-
-    flux::CliOptions options;
-    std::string error;
-    if (!flux::parseArguments(args, options, error)) {
-        std::cerr << "flux: error: " << error << "\n\n";
-        printUsage(std::cerr);
-        return 2;
-    }
-    if (options.help) {
-        printUsage(std::cout);
-        return 0;
-    }
-
-    flux::IndexStats stats;
-    if (!flux::indexDirectory(options.directory, stats, error, options.threads)) {
-        std::cerr << "flux: error: " << error << '\n';
-        return 1;
-    }
-
-    std::cout << "Flux scan complete\n"
-              << "  Threads:             " << options.threads << '\n'
-              << "  Documents processed: " << stats.documents << '\n'
-              << "  Empty documents:     " << stats.emptyDocuments << '\n'
-              << "  Tokens processed:    " << stats.tokens << '\n'
-              << "  Unsupported files:   " << stats.unsupportedFiles << '\n'
-              << "  Skipped (errors):    " << stats.skipped.size() << '\n';
-    for (const std::string& s : stats.skipped) {
-        std::cerr << "flux: warning: skipped " << s << '\n';
-    }
-    return 0;
+#ifdef _WIN32
+    const ConsoleUtf8 console;
+#endif
+    return flux::runCli(flux::utf8CommandLine(argc, argv), flux::systemEnvironment(), std::cout, std::cerr);
 }

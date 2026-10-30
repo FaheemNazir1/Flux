@@ -30,4 +30,32 @@ std::vector<std::string> tokenize(std::string_view text) {
     return tokens;
 }
 
+std::size_t tokenizeCounts(std::string_view text, std::unordered_map<std::string, std::uint32_t>& counts,
+                           std::size_t maxTokenLength) {
+    std::size_t kept = 0;
+    std::string current;
+    bool tooLong = false;
+    const auto flush = [&] {
+        if (!current.empty() && !tooLong) {
+            ++counts[current];
+            ++kept;
+        }
+        current.clear();
+        tooLong = false;
+    };
+    for (const char c : text) {
+        if (isAsciiAlnum(c)) {
+            if (maxTokenLength != 0 && current.size() >= maxTokenLength) {
+                tooLong = true;
+            } else if (!tooLong) {
+                current.push_back(toAsciiLower(c));
+            }
+        } else {
+            flush();
+        }
+    }
+    flush();
+    return kept;
+}
+
 }  // namespace flux

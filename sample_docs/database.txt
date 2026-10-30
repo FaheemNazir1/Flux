@@ -1,0 +1,1 @@
+SQLite stores the index and supports fast document search.

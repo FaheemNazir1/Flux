@@ -1,0 +1,30 @@
+THIRD-PARTY NOTICES
+===================
+
+Flux includes the following third-party components. This list describes what is actually built
+into flux.exe and flux-gui.exe.
+
+1. SQLite 3.54.1  (https://www.sqlite.org)
+   Compiled into both programs from the official amalgamation (sqlite3.c, sqlite3.h).
+   SQLite is in the public domain. Its authors have dedicated it to the public domain; no
+   license or attribution is required. See https://www.sqlite.org/copyright.html
+
+2. GCC runtime libraries (libstdc++ and libgcc), statically linked
+   The programs are built with GCC (MSYS2 UCRT64 toolchain) and these runtime libraries are
+   linked into the executables. They are licensed under the GNU General Public License
+   version 3 WITH the GCC Runtime Library Exception (version 3.1), which permits distributing
+   programs that include them regardless of the license of the program itself.
+   See https://www.gnu.org/licenses/gcc-exception-3.1.html
+   Source code for these libraries is available from the GCC project: https://gcc.gnu.org
+
+3. mingw-w64 runtime (C runtime start-up code and the winpthreads threading library),
+   statically linked
+   These are provided by the mingw-w64 project (https://www.mingw-w64.org) under permissive
+   licenses (public domain, Zope Public License and MIT/BSD-style licenses). The exact notices
+   are in the mingw-w64 source distribution.
+
+4. Microsoft Windows system libraries
+   Flux uses the Universal C Runtime and other libraries that are part of Windows itself.
+   They are not included in this package.
+
+Flux itself is described in LICENSE.txt.

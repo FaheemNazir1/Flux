@@ -1,0 +1,14 @@
+Flux
+
+Copyright (c) the author(s) of Flux. All rights reserved.
+
+NOTE TO THE PROJECT OWNER: no license has been chosen for Flux yet, so this file is a placeholder
+that states the default legal position. Replace the contents of this file with the license you
+choose (for example MIT, Apache-2.0 or a proprietary license) BEFORE you distribute Flux to
+anyone. packaging/LICENSE.txt is the file that ships in the package and the installer.
+
+Until a license is added, no permission to copy, modify or redistribute Flux is granted beyond
+using the copy you received from its owner.
+
+Components of Flux that come from other projects are covered by their own licenses; see
+THIRD-PARTY-NOTICES.txt.

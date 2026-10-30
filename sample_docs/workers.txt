@@ -1,0 +1,1 @@
+Flux uses worker threads to process documents concurrently.

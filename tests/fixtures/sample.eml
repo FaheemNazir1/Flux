@@ -1,0 +1,18 @@
+From: =?utf-8?B?RmFoZWVtIE5hemly?= <f@example.com>
+To: x@example.com
+Subject: =?utf-8?B?Zmx4ZW1sc3ViamVjdA==?=
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="BOUND"
+
+--BOUND
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Body flxemlbody caf=C3=A9 and a very long line that is wrapped with a soft break=
+ continues here.
+--BOUND
+Content-Type: text/plain; name="flxattach.txt"
+Content-Disposition: attachment; filename="flxattach.txt"
+
+attachment body
+--BOUND--

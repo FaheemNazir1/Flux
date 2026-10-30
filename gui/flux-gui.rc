@@ -1,0 +1,34 @@
+#include <winuser.h>
+#include <winver.h>
+#include "flux_version.h"
+
+// Themed controls and per-monitor DPI
+1 RT_MANIFEST "flux-gui.manifest"
+
+// Name, description and version shown in Explorer's Properties > Details
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION FLUX_VERSION_MAJOR,FLUX_VERSION_MINOR,FLUX_VERSION_PATCH,0
+ PRODUCTVERSION FLUX_VERSION_MAJOR,FLUX_VERSION_MINOR,FLUX_VERSION_PATCH,0
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "ProductName", FLUX_PRODUCT_NAME
+            VALUE "FileDescription", "Flux desktop app - search the files in the folders you choose"
+            VALUE "FileVersion", FLUX_VERSION_STRING
+            VALUE "ProductVersion", FLUX_VERSION_STRING
+            VALUE "InternalName", "flux-gui"
+            VALUE "OriginalFilename", "flux-gui.exe"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
